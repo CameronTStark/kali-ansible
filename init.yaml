@@ -1,0 +1,20 @@
+
+# ansible-playbook --connection local --inventory localhost, init.yaml
+# use this if  an ansible_hosts file exists
+# ansible-playbook --connection local --inventory localhost, --limit localhost init.yaml
+
+---
+ - hosts: all
+   tasks:
+   - name: Clone a github repository
+     git:
+       repo: git@github.com:CameronTStark/dotfiles.git
+       dest: /home/kali/git/dotfiles
+       clone: yes
+       update: yes
+       version: main
+
+   - name: Install dotfiles
+     script: /home/kali/git/dotfiles/installers/install.sh
+     args:
+       chdir: /home/kali/git/dotfiles/installers/
